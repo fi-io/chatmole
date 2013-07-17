@@ -1,0 +1,33 @@
+<html>
+	<head>
+		<title>Chatmole - alpha</title>
+		<link rel="stylesheet" type="text/css" href="/chatmole.css" />
+	</head>
+	<body>
+		 <div id="userInfo">
+			<p>Enter a username : </p>
+			<p id="unameError"></p>
+			
+			<form id="unameForm">
+				<input type="text" id="uname" size="35" />
+				<input type="submit" value="submit!" />
+			</form>
+		</div>
+		
+		<div id="contentWrapper">
+			<div id="chatWrapper">
+				<div id="chat"></div>
+				<form id="send-message">
+					<input type="text" size="35" id="message" />
+					<input type="submit" value="Send!" />
+				</form>
+			</div>
+			
+			<div id="usersWrapper"></div>
+		</div>
+		
+		<script type="text/javascript" src="/jquery.js"></script>
+		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+		<script type="text/javascript" src="/chatmole.js"></script>
+	</body>
+</html>
