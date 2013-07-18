@@ -11,7 +11,3 @@
 	border : 1px solid #000;
 }
 
-#usersWrapper {
-	float : right;
-	border : 1px solid #000;
-}

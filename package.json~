@@ -1,9 +1,17 @@
 {
-	"name" : "chatmole",
-	"version" : "0.1",
-	"private" : "true",
-	"dependencies" : {
-		"socket.io" : "0.9.16",
-		"express" : "3.2.5"
-	}
+  "name": "chatmole",
+  "subdomain": "chatmole",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "socket.io": "0.9.x",
+    "express": "3.2.x"
+  },
+  "version": "0.0.1",
+  "engines": {
+    "node": "v0.8.x"
+  },
+  "author": { "name": "fi-io", "email": "contactbrijmohan@gmail.com" },
+  "repository": { "type": "git", "url": "git://github.com/fi-io/chatmole.git" }
 }

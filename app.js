@@ -2,7 +2,7 @@ var express = require('express'),
     app = express(),
     server = require('http').createServer(app),
     io = require('socket.io').listen(server),
-    usernames = [];
+    users = {};
 
 server.listen(8000);
 
@@ -14,28 +14,46 @@ app.get("/", function(req, res) {
 io.sockets.on('connection', function(socket) {
 
 	function updateUsernames () {
-		io.sockets.emit('usernames', usernames);
+		io.sockets.emit('usernames', Object.keys(users));
 	}
 
 	socket.on('newUser', function(data, callback) {
-		if(usernames.indexOf(data) != -1) {
+		if(data in users) {
 			callback(false);
 		}
 		else {
 			callback(true);
 			socket.uname = data;
-			usernames.push(data);
+			users[socket.uname] = socket;
 			updateUsernames();
 		}
 	});
 	
-	socket.on('sendMsg', function(data) {
-		io.sockets.emit('newMsg', {msg : data, uname : socket.uname});
+	socket.on('sendMsg', function(data, callback) {
+		var msg = data.trim();
+		if(msg.substr(0, 3) === '/w ') {
+			msg = msg.substr(3);
+			var ind = msg.indexOf(' ');
+			if(ind != -1) {
+				var name = msg.substr(0, ind);
+				msg = msg.substr(ind + 1);
+				if (name in users) {
+					users[name].emit('pvtMsg', {msg : msg, uname : socket.uname});
+				} else {
+					callback("ERROR : Please enter a valid user name!");
+				}
+			} else {
+				callback("ERROR : Please enter a message for your private message!");
+			}
+		}
+		else {
+			io.sockets.emit('newMsg', {msg : msg, uname : socket.uname});
+		}
 	});
 
 	socket.on('disconnect', function(data) {
 		if(!socket.uname) return;
-		usernames.splice(usernames.indexOf(socket.uname), 1);	
+		delete users[socket.uname];
 		updateUsernames();
 	});
 });

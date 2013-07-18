@@ -11,12 +11,10 @@ $(function(){
 	$messageForm.off('submit');
 	$messageForm.on('submit', function(e){
 		e.preventDefault();
-		socket.emit('sendMsg', $messageBox.val());
+		socket.emit('sendMsg', $messageBox.val(), function(data){
+			// TODO
+		});
 		$messageBox.val('');
-	});
-	
-	socket.on('newMsg', function(data){
-		$chat.append("<b>" + data.uname + ":> </b>" + data.msg + "<br/>");
 	});
 	
 	$unameForm.off('submit');
@@ -34,11 +32,19 @@ $(function(){
 		$unameBox.val('');
 	});
 	
+	socket.on('newMsg', function(data){
+		$chat.append("<span class='msg'><b>" + data.uname + ":> </b>" + data.msg + "</span><br/>");
+	});
+	
 	socket.on('usernames', function(data){
 		var userStr = "";
 		for (var i = 0; i < data.length; i++) {
 			userStr += data[i] + "<br/>";
 		}
 		$usersWrapper.html(userStr);
+	});
+	
+	socket.on('pvtMsg', function(data){
+		$chat.append("<span class='pvtMsg'><b>" + data.uname + ":> </b>" + data.msg + "</span><br/>");
 	});
 });
