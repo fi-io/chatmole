@@ -43,7 +43,7 @@ io.sockets.on('connection', function(socket) {
 					callback("ERROR : Please enter a valid user name!");
 				}
 			} else {
-				callback("ERROR : Please enter a message for your whisper!");
+				callback("ERROR : Please enter a message for your private message!");
 			}
 		}
 		else {

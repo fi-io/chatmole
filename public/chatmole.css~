@@ -1,5 +1,6 @@
 #chat {
 	height : 300px;
+	overflow-y : scroll;
 }
 
 #contentWrapper {
@@ -11,3 +12,11 @@
 	border : 1px solid #000;
 }
 
+.error {
+	color : red;
+}
+
+.pvtMsg {
+	color : gray;
+	font-style : italic;
+}

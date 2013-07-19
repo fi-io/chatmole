@@ -44,9 +44,8 @@ io.sockets.on('connection', function(socket) {
 				}
 			} else {
 				callback("ERROR : Please enter a message for your private message!");
-			}
-		}
-		else {
+            }
+		} else {
 			io.sockets.emit('newMsg', {msg : msg, uname : socket.uname});
 		}
 	});
