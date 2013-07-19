@@ -12,7 +12,7 @@ $(function(){
 	$messageForm.on('submit', function(e){
 		e.preventDefault();
 		socket.emit('sendMsg', $messageBox.val(), function(data){
-			// TODO
+			$chat.append("<span class='error'>" + data + "</span><br/>");
 		});
 		$messageBox.val('');
 	});

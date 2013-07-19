@@ -11,6 +11,16 @@ app.get("/", function(req, res) {
 	res.sendfile(__dirname + "/index.html");
 });
 
+// Add All Installed Apps by context path
+var installedApps = require('./installedApps');
+
+for ( appI in installedApps.apps ) {
+	var appL = installedApps.apps[appI];	
+	var path = appL.contextPath ; 		
+	var mod = require(appL.dir);
+	app.use(path , mod );
+}
+
 io.sockets.on('connection', function(socket) {
 
 	function updateUsernames () {
