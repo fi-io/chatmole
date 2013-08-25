@@ -3,7 +3,7 @@ var express = require('express'),
     server = require('http').createServer(app),
     io = require('socket.io').listen(server),
     users = {};
-
+ 
 server.listen(8000);
 
 app.use(express.static('public'));
